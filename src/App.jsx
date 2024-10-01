@@ -1,9 +1,10 @@
-import Homepage from "./components/Homepage";
+import Navbar from "./components/Navbar";
 
 function App() {
   return (
-    <div className="flex items-center justify-center h-screen">
-      <Homepage />
+    // className="bg-[#FAEBD7] w-3/4 h-4/5" apply this in desktop mode
+    <div className='bg-[#FAEBD7] w-full h-full flex justify-center'>
+      <Navbar />
     </div>
   );
 }
