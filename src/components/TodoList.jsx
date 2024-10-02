@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { nanoid } from "nanoid";
 import Todo from "./Todo";
 
@@ -7,7 +7,16 @@ const TodoList = () => {
   const [input, setInput] = useState("");
 
   // state for storing todos
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState(() => {
+    // Lazy intialization in useState to check if there are any todos in localStorage when the component first reneders
+    const savedTodos = localStorage.getItem("todos");
+    return savedTodos ? JSON.parse(savedTodos) : []; //Checks if savedTodos exists in localStorage or not
+  });
+
+  // Saving todos in localStorage everytime todos changes
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos))
+  }, [todos]);
 
   // Add Todo
   function addTodo() {
