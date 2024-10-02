@@ -1,5 +1,6 @@
 import Navbar from "./components/Navbar";
 import TodoList from "./components/TodoList";
+import Authentication from './components/Authentication';
 
 function App() {
   return (
@@ -7,6 +8,7 @@ function App() {
     <div className='bg-[#D6D3C0] w-full h-full flex flex-col items-center'>
       <Navbar />
       <TodoList />
+      <Authentication />
     </div>
   );
 }
