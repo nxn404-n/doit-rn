@@ -9,13 +9,18 @@ const TodoList = () => {
   // state for storing todos
   const [todos, setTodos] = useState(() => {
     // Lazy intialization in useState to check if there are any todos in localStorage when the component first reneders
-    const savedTodos = localStorage.getItem("todos");
-    return savedTodos ? JSON.parse(savedTodos) : []; //Checks if savedTodos exists in localStorage or not
+    try {
+      const savedTodos = localStorage.getItem("todos");
+      return savedTodos ? JSON.parse(savedTodos) : []; //Checks if savedTodos exists in localStorage or not
+    } catch (error) {
+      console.error("Error parsing userData from localStorage", error);
+      return [];
+    }
   });
 
   // Saving todos in localStorage everytime todos changes
   useEffect(() => {
-    localStorage.setItem("todos", JSON.stringify(todos))
+    localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
 
   // Add Todo
@@ -38,10 +43,12 @@ const TodoList = () => {
 
   // Toggle completed
   function toggleComplete(id) {
-  setTodos(todos.map((todo) => (
-    todo.id === id ? { ...todo, completed: !todo.completed } : todo
-  )));
-};
+    setTodos(
+      todos.map((todo) =>
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo
+      )
+    );
+  }
 
   return (
     <div>
@@ -67,7 +74,11 @@ const TodoList = () => {
       <div>
         {todos.map((todo) => (
           <div key={todo.id}>
-            <Todo data={todo} deleteTodo={deleteTodo} toggleComplete={toggleComplete} />
+            <Todo
+              data={todo}
+              deleteTodo={deleteTodo}
+              toggleComplete={toggleComplete}
+            />
           </div>
         ))}
       </div>
