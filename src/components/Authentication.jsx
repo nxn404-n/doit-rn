@@ -1,35 +1,10 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
 import SignupOrLogin from "./SignupOrLogin";
 
-const Authentication = () => {
-  // If its true thn shows the signup form instead
-  const [signUp, setSignUp] = useState(false);
-
-  const [loggedIn, setLoggedIn] = useState(() => {
-    // Lazy intialization in useState to check if there are any userData in localStorage when the component first reneders
-    try {
-      const savedLoginData = localStorage.getItem("loggedIn");
-      return savedLoginData
-        ? JSON.parse(savedLoginData)
-        : false;
-    } catch (error) {
-      console.error("Error parsing userData from localStorage", error);
-      return false;
-    }
-  });
-
-  const [userData, setUserData] = useState(() => {
-    // Lazy intialization in useState to check if there are any userData in localStorage when the component first reneders
-    try {
-      const savedUserData = localStorage.getItem("userData");
-      return savedUserData
-        ? JSON.parse(savedUserData)
-        : { username: "", password: "" };
-    } catch (error) {
-      console.error("Error parsing userData from localStorage", error);
-      return { username: "", password: "" };
-    }
-  });
+const Authentication = ({ loggedIn, setLoggedIn, signUp, setSignUp }) => {
+  // stores the userData
+  const [userData, setUserData] = useState({ username: "", password: "" });
 
   // function for toggling between signup page and login page
   function handleSignup() {
@@ -37,44 +12,50 @@ const Authentication = () => {
   }
 
   return (
-    <>
-      {loggedIn ? null : (
-        <div className='border-2 border-black'>
-          <h1>Welcome to DOIT-rn</h1>
+    <div className='border-2 border-black'>
+      <h1>Welcome to DOIT-rn</h1>
 
-          {/* Showes diff content according to the state */}
-          {signUp ? (
-            <SignupOrLogin
-              buttonName={"Log in"}
-              userData={userData}
-              setUserData={setUserData}
-              setLoggedIn={setLoggedIn}
-            />
-          ) : (
-            <SignupOrLogin
-              buttonName={"Sign Up"}
-              userData={userData}
-              setUserData={setUserData}
-              setLoggedIn={setLoggedIn}
-            />
-          )}
+      {/* Showes diff content according to the signUp state */}
+      {signUp ? (
+        <SignupOrLogin
+          buttonName={"Sign Up"}
+          userData={userData}
+          setUserData={setUserData}
+          loggedIn={loggedIn}
+          setLoggedIn={setLoggedIn}
+          signUp={signUp}
+        />
+      ) : (
+        <SignupOrLogin
+          buttonName={"Log in"}
+          userData={userData}
+          setUserData={setUserData}
+          loggedIn={loggedIn}
+          setLoggedIn={setLoggedIn}
+          signUp={signUp}
+        />
+      )}
 
-          {/* Showes diff footer according to the state */}
-          {signUp ? (
-            <div className='flex gap-2'>
-              <p>Back to Sign up page?</p>
-              <button onClick={() => handleSignup()}>Sign Up</button>
-            </div>
-          ) : (
-            <div className='flex gap-2'>
-              <p>Already have an account?</p>
-              <button onClick={() => handleSignup()}>Log in</button>
-            </div>
-          )}
+      {/* Showes diff footer according to the state according to the signUp state */}
+      {signUp ? (
+        <div className='flex gap-2'>
+          <p>Already have an account?</p>
+          <button onClick={() => handleSignup()}>Log in</button>
+        </div>
+      ) : (
+        <div className='flex gap-2'>
+          <p>Create a new account?</p>
+          <button onClick={() => handleSignup()}>Sign Up</button>
         </div>
       )}
-    </>
+    </div>
   );
+};
+Authentication.propTypes = {
+  loggedIn: PropTypes.bool.isRequired,
+  setLoggedIn: PropTypes.func.isRequired,
+  signUp: PropTypes.bool.isRequired,
+  setSignUp: PropTypes.func.isRequired,
 };
 
 export default Authentication;

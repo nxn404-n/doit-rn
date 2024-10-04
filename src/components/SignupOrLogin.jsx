@@ -1,6 +1,17 @@
 import PropTypes from "prop-types";
+import { useState } from "react";
 
-const SignupOrLogin = ({ buttonName, userData, setUserData, setLoggedIn }) => {
+const SignupOrLogin = ({
+  buttonName,
+  userData,
+  setUserData,
+  loggedIn,
+  setLoggedIn,
+  signUp,
+}) => {
+  // Stores the messege data if input fields are empty
+  const [errorMessege, setErrorMessege] = useState("");
+
   // Handles the input changes and updates the useData state
   function handleInput(e) {
     const { name, value } = e.target; //Takes the name and value from the input
@@ -11,9 +22,41 @@ const SignupOrLogin = ({ buttonName, userData, setUserData, setLoggedIn }) => {
   }
 
   function handleSubmit() {
-    localStorage.setItem("userData", JSON.stringify(userData))
-    setLoggedIn(true);
-    localStorage.setItem("loggedIn", JSON.stringify(true))
+    const savedUserData = JSON.parse(localStorage.getItem("savedUserData"));
+
+    if (!signUp) {
+      // If on the login page
+      // Check if there is saved user data and if it matches the input
+      if (
+        savedUserData &&
+        userData.username === savedUserData.username &&
+        userData.password === savedUserData.password
+      ) {
+        setLoggedIn(true);
+        localStorage.setItem("loggedIn", JSON.stringify(loggedIn));
+      } else {
+        // Handle login failure case
+        setErrorMessege("Username or password is incorrect!");
+      }
+    } else {
+      // If on the signup page, proceed with saving new user data
+      if (userData.username !== "" && userData.password !== "") {
+        setLoggedIn(true);
+        localStorage.setItem("loggedIn", JSON.stringify(loggedIn));
+
+        // Save the new user data in localStorage
+        localStorage.setItem("savedUserData", JSON.stringify(userData));
+      }
+
+      // Display appropriate error messages
+      if (userData.username === "" && userData.password !== "") {
+        setErrorMessege("Please enter a username!");
+      } else if (userData.username !== "" && userData.password === "") {
+        setErrorMessege("Please enter a password!");
+      } else if (userData.username === "" && userData.password === "") {
+        setErrorMessege("Please enter a username and a password!");
+      }
+    }
   }
 
   return (
@@ -27,7 +70,6 @@ const SignupOrLogin = ({ buttonName, userData, setUserData, setLoggedIn }) => {
             value={userData.username}
             onChange={handleInput}
           />
-          {/* Only using onChange={handleInput} instead of onChange={(e) => handleInput(e)} because react automatically provides the even object like (e) and react internally calls handleInput(e) */}
         </label>
 
         <label className='flex flex-col'>
@@ -39,10 +81,14 @@ const SignupOrLogin = ({ buttonName, userData, setUserData, setLoggedIn }) => {
             onChange={handleInput}
           />
         </label>
+        <p className='text-red-500'>{errorMessege}</p>
       </div>
 
-      <div className='border-2 border-black p-2 text-center'>
-        <button onClick={handleSubmit}>{buttonName}</button>
+      <div
+        className='border-2 border-black p-2 text-center'
+        onClick={handleSubmit}
+      >
+        <button>{buttonName}</button>
       </div>
     </div>
   );
@@ -54,7 +100,9 @@ SignupOrLogin.propTypes = {
     password: PropTypes.string,
   }).isRequired,
   setUserData: PropTypes.func.isRequired,
+  loggedIn: PropTypes.bool.isRequired,
   setLoggedIn: PropTypes.func.isRequired,
+  signUp: PropTypes.bool.isRequired,
 };
 
 export default SignupOrLogin;

@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import { nanoid } from "nanoid";
 import Todo from "./Todo";
 
-const TodoList = () => {
+const TodoList = ({ setLoggedIn, setSignUp, loggedIn }) => {
   // This input stores the value of the input box
   const [input, setInput] = useState("");
 
@@ -50,6 +51,13 @@ const TodoList = () => {
     );
   }
 
+
+  function handleLogOut() {
+    setLoggedIn(false)
+    localStorage.setItem("loggedIn", JSON.stringify(loggedIn));
+    setSignUp(false);
+  }
+
   return (
     <div>
       <h2>To-Do</h2>
@@ -82,8 +90,15 @@ const TodoList = () => {
           </div>
         ))}
       </div>
+      <button onClick={handleLogOut}>log out</button>
     </div>
   );
+};
+TodoList.propTypes = {
+  setLoggedIn: PropTypes.func.isRequired,
+  setSignUp: PropTypes.func.isRequired,
+  loggedIn: PropTypes.bool.isRequired,
+
 };
 
 export default TodoList;
