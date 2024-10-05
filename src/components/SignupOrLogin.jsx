@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 
 const SignupOrLogin = ({
   buttonName,
@@ -9,6 +10,8 @@ const SignupOrLogin = ({
   setLoggedIn,
   signUp,
 }) => {
+  // Stores the data if the user want to see the password or not
+  const [showPassword, setShowPassword] = useState(false);
   // Stores the messege data if input fields are empty
   const [errorMessege, setErrorMessege] = useState("");
 
@@ -74,12 +77,18 @@ const SignupOrLogin = ({
 
         <label className='flex flex-col'>
           Password
-          <input
-            type='text'
-            name='password'
-            value={userData.password}
-            onChange={handleInput}
-          />
+          <div className='flex items-center justify-between'>
+            <input
+              type={showPassword ? "text" : "password"}
+              name='password'
+              value={userData.password}
+              onChange={handleInput}
+            />
+            {/* Toggles the showPassword state */}
+            <div onClick={() => setShowPassword((prevState) => !prevState)}>
+              {showPassword ? <FaRegEye /> : <FaRegEyeSlash />}
+            </div>
+          </div>
         </label>
         <p className='text-red-500'>{errorMessege}</p>
       </div>
