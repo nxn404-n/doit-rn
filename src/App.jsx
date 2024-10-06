@@ -47,6 +47,7 @@ function App() {
             setLoggedIn={setLoggedIn}
             setSignUp={setSignUp}
             loggedIn={loggedIn}
+            showTodo={showTodo}
           />
         )}
 

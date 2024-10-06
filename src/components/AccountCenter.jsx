@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-const AccountCenter = ({ setLoggedIn, setSignUp, loggedIn }) => {
+const AccountCenter = ({ setLoggedIn, setSignUp, loggedIn, showTodo }) => {
   const accName = JSON.parse(localStorage.getItem("savedUserData")).username;
 
   function handleLogOut() {
@@ -17,7 +17,7 @@ const AccountCenter = ({ setLoggedIn, setSignUp, loggedIn }) => {
 
   return (
     <>
-      {loggedIn && (
+      {loggedIn && !showTodo && (
         <div>
           <h2>Account Center</h2>
 
@@ -36,6 +36,7 @@ AccountCenter.propTypes = {
   setLoggedIn: PropTypes.func.isRequired,
   setSignUp: PropTypes.func.isRequired,
   loggedIn: PropTypes.bool.isRequired,
+  showTodo: PropTypes.bool.isRequired,
 };
 
 export default AccountCenter;
