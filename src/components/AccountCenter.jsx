@@ -9,6 +9,12 @@ const AccountCenter = ({ setLoggedIn, setSignUp, loggedIn }) => {
     setSignUp(false);
   }
 
+  function handleDeleteAcc() {
+    setLoggedIn(false);
+    localStorage.setItem("savedUserData", JSON.stringify({ username: "", password: "" }));
+    localStorage.setItem("todos", JSON.stringify([]));
+  }
+
   return (
     <>
       {loggedIn && (
@@ -17,7 +23,7 @@ const AccountCenter = ({ setLoggedIn, setSignUp, loggedIn }) => {
 
           <div>
             <p>Username: {accName}</p>
-            <p>Delete account</p>
+            <p onClick={handleDeleteAcc}>Delete account</p>
             <p onClick={handleLogOut}>Log out</p>
           </div>
         </div>
