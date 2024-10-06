@@ -1,9 +1,17 @@
 import Navbar from "./components/Navbar";
 import TodoList from "./components/TodoList";
 import Authentication from "./components/Authentication";
+import Sidebar from "./components/Sidebar";
 import { useEffect, useState } from "react";
+import AccountCenter from "./components/AccountCenter";
 
 function App() {
+  // decides if its gonna show the todo list or not
+  const [showTodo, setShowTodo] = useState(false);
+
+  // decides if its gonna show the account center or not
+  const [showAccCenter, setShowAccCenter] = useState(false);
+
   // If its true thn shows the signup form and if its false thn shows the login form
   const [signUp, setSignUp] = useState(true);
 
@@ -23,22 +31,35 @@ function App() {
   }, [loggedIn]);
 
   return (
-    // className="bg-[#FAEBD7] w-3/4 h-4/5" apply this in desktop mode
-    <div className='bg-[#D6D3C0] w-full h-full flex flex-col items-center'>
+    <div className='bg-[#D6D3C0] w-full h-full'>
       <Navbar />
-      <TodoList
-        setLoggedIn={setLoggedIn}
-        setSignUp={setSignUp}
-        loggedIn={loggedIn}
-      />
-      {loggedIn === false && (
-        <Authentication
-          loggedIn={loggedIn}
-          setLoggedIn={setLoggedIn}
-          signUp={signUp}
-          setSignUp={setSignUp}
+      {/* className="bg-[#FAEBD7] w-3/4 h-4/5" apply this in desktop mode */}
+      <div className=' w-full h-full flex border-2 border-black'>
+        <Sidebar
+          setShowTodo={setShowTodo}
+          setShowAccCenter={setShowAccCenter}
         />
-      )}
+
+        {showTodo && <TodoList loggedIn={loggedIn} />}
+
+        {showAccCenter && (
+          <AccountCenter
+            setLoggedIn={setLoggedIn}
+            setSignUp={setSignUp}
+            loggedIn={loggedIn}
+          />
+        )}
+
+        {loggedIn === false && (
+          <Authentication
+            loggedIn={loggedIn}
+            setLoggedIn={setLoggedIn}
+            signUp={signUp}
+            setSignUp={setSignUp}
+            setShowTodo={setShowTodo}
+          />
+        )}
+      </div>
     </div>
   );
 }

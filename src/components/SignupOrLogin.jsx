@@ -9,6 +9,7 @@ const SignupOrLogin = ({
   loggedIn,
   setLoggedIn,
   signUp,
+  setShowTodo,
 }) => {
   // Stores the data if the user want to see the password or not
   const [showPassword, setShowPassword] = useState(false);
@@ -37,6 +38,7 @@ const SignupOrLogin = ({
       ) {
         setLoggedIn(true);
         localStorage.setItem("loggedIn", JSON.stringify(loggedIn));
+        setShowTodo(true);
       } else {
         // Handle login failure case
         setErrorMessege("Username or password is incorrect!");
@@ -46,6 +48,7 @@ const SignupOrLogin = ({
       if (userData.username !== "" && userData.password !== "") {
         setLoggedIn(true);
         localStorage.setItem("loggedIn", JSON.stringify(loggedIn));
+        setShowTodo(true);
 
         // Save the new user data in localStorage
         localStorage.setItem("savedUserData", JSON.stringify(userData));
@@ -103,6 +106,7 @@ const SignupOrLogin = ({
   );
 };
 SignupOrLogin.propTypes = {
+  setShowTodo: PropTypes.func.isRequired,
   buttonName: PropTypes.string.isRequired,
   userData: PropTypes.shape({
     username: PropTypes.string,

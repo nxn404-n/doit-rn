@@ -5,3 +5,11 @@
 body {
   @apply bg-[#1E1E1E]
 }
+
+.sideBar-btn-icon {
+  @apply text-5xl
+}
+
+.sideBar-btn {
+  @apply flex flex-col items-center
+}

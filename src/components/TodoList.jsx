@@ -3,23 +3,23 @@ import PropTypes from "prop-types";
 import { nanoid } from "nanoid";
 import Todo from "./Todo";
 
-const TodoList = ({ setLoggedIn, setSignUp, loggedIn }) => {
+const TodoList = ({ loggedIn }) => {
   // This input stores the value of the input box
   const [input, setInput] = useState("");
 
-  // state for storing todos
+  // State for storing todos
   const [todos, setTodos] = useState(() => {
-    // Lazy intialization in useState to check if there are any todos in localStorage when the component first reneders
+    // Lazy initialization to check if there are any todos in localStorage when the component first renders
     try {
       const savedTodos = localStorage.getItem("todos");
-      return savedTodos ? JSON.parse(savedTodos) : []; //Checks if savedTodos exists in localStorage or not
+      return savedTodos ? JSON.parse(savedTodos) : []; // Checks if savedTodos exists in localStorage or not
     } catch (error) {
-      console.error("Error parsing userData from localStorage", error);
+      console.error("Error parsing todos from localStorage", error);
       return [];
     }
   });
 
-  // Saving todos in localStorage everytime todos changes
+  // Save todos to localStorage every time todos changes
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
@@ -28,8 +28,8 @@ const TodoList = ({ setLoggedIn, setSignUp, loggedIn }) => {
   function addTodo() {
     if (input !== "") {
       const newTodo = {
-        id: nanoid(), //unique id for todos
-        task: input.trim(), //trims any spaces
+        id: nanoid(), // Unique id for todos
+        task: input.trim(), // Trims any spaces
         completed: false,
       };
       setTodos([...todos, newTodo]);
@@ -51,54 +51,47 @@ const TodoList = ({ setLoggedIn, setSignUp, loggedIn }) => {
     );
   }
 
-
-  function handleLogOut() {
-    setLoggedIn(false)
-    localStorage.setItem("loggedIn", JSON.stringify(loggedIn));
-    setSignUp(false);
-  }
-
   return (
-    <div>
-      <h2>To-Do</h2>
+    <>
+      {loggedIn && (
+        <div>
+          <h2>To-Do</h2>
 
-      {/* Todo input */}
-      <div>
-        <input
-          type='text'
-          className='border-2 border-black'
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-        />
-        <button
-          className='border-2 border-black bg-white'
-          onClick={() => addTodo()}
-        >
-          Add todo
-        </button>
-      </div>
-
-      {/* Todo List */}
-      <div>
-        {todos.map((todo) => (
-          <div key={todo.id}>
-            <Todo
-              data={todo}
-              deleteTodo={deleteTodo}
-              toggleComplete={toggleComplete}
+          {/* Todo input */}
+          <div>
+            <input
+              type="text"
+              className="border-2 border-black"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
             />
+            <button
+              className="border-2 border-black bg-white"
+              onClick={addTodo}
+            >
+              Add todo
+            </button>
           </div>
-        ))}
-      </div>
-      <button onClick={handleLogOut}>log out</button>
-    </div>
+
+          {/* Todo List */}
+          <div>
+            {todos.map((todo) => (
+              <div key={todo.id}>
+                <Todo
+                  data={todo}
+                  deleteTodo={deleteTodo}
+                  toggleComplete={toggleComplete}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 TodoList.propTypes = {
-  setLoggedIn: PropTypes.func.isRequired,
-  setSignUp: PropTypes.func.isRequired,
   loggedIn: PropTypes.bool.isRequired,
-
 };
 
 export default TodoList;

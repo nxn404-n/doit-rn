@@ -2,7 +2,13 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import SignupOrLogin from "./SignupOrLogin";
 
-const Authentication = ({ loggedIn, setLoggedIn, signUp, setSignUp }) => {
+const Authentication = ({
+  loggedIn,
+  setLoggedIn,
+  signUp,
+  setSignUp,
+  setShowTodo,
+}) => {
   // stores the userData
   const [userData, setUserData] = useState({ username: "", password: "" });
 
@@ -24,6 +30,7 @@ const Authentication = ({ loggedIn, setLoggedIn, signUp, setSignUp }) => {
           loggedIn={loggedIn}
           setLoggedIn={setLoggedIn}
           signUp={signUp}
+          setShowTodo={setShowTodo}
         />
       ) : (
         <SignupOrLogin
@@ -33,6 +40,7 @@ const Authentication = ({ loggedIn, setLoggedIn, signUp, setSignUp }) => {
           loggedIn={loggedIn}
           setLoggedIn={setLoggedIn}
           signUp={signUp}
+          setShowTodo={setShowTodo}
         />
       )}
 
@@ -56,6 +64,7 @@ Authentication.propTypes = {
   setLoggedIn: PropTypes.func.isRequired,
   signUp: PropTypes.bool.isRequired,
   setSignUp: PropTypes.func.isRequired,
+  setShowTodo: PropTypes.func.isRequired,
 };
 
 export default Authentication;
