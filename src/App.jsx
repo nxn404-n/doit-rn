@@ -7,7 +7,7 @@ import AccountCenter from "./components/AccountCenter";
 
 function App() {
   // decides if its gonna show the todo list or not
-  const [showTodo, setShowTodo] = useState(false);
+  const [showTodo, setShowTodo] = useState(true);
 
   // decides if its gonna show the account center or not
   const [showAccCenter, setShowAccCenter] = useState(false);
@@ -53,7 +53,6 @@ function App() {
 
         {loggedIn === false && (
           <Authentication
-            loggedIn={loggedIn}
             setLoggedIn={setLoggedIn}
             signUp={signUp}
             setSignUp={setSignUp}

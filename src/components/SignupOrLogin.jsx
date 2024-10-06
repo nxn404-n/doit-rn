@@ -1,24 +1,24 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
+import bcrypt from "bcryptjs";
 
 const SignupOrLogin = ({
   buttonName,
   userData,
   setUserData,
-  loggedIn,
   setLoggedIn,
   signUp,
   setShowTodo,
 }) => {
-  // Stores the data if the user want to see the password or not
+  // Stores the data if the user wants to see the password or not
   const [showPassword, setShowPassword] = useState(false);
-  // Stores the messege data if input fields are empty
-  const [errorMessege, setErrorMessege] = useState("");
+  // Stores the error messege
+  const [errorMessage, setErrorMessage] = useState("");
 
-  // Handles the input changes and updates the useData state
+  // Handles the input changes and updates the userData state
   function handleInput(e) {
-    const { name, value } = e.target; //Takes the name and value from the input
+    const { name, value } = e.target; // Takes the name and value from the input
     setUserData((prevState) => ({
       ...prevState,
       [name]: value,
@@ -28,39 +28,54 @@ const SignupOrLogin = ({
   function handleSubmit() {
     const savedUserData = JSON.parse(localStorage.getItem("savedUserData"));
 
+    // If on the login page
     if (!signUp) {
-      // If on the login page
       // Check if there is saved user data and if it matches the input
-      if (
-        savedUserData &&
-        userData.username === savedUserData.username &&
-        userData.password === savedUserData.password
-      ) {
-        setLoggedIn(true);
-        localStorage.setItem("loggedIn", JSON.stringify(loggedIn));
-        setShowTodo(true);
+      if (savedUserData) {
+        // Compare the hashed password using bcrypt
+        bcrypt.compare(userData.password, savedUserData.password, (err, isMatch) => {
+          if (err) {
+            setErrorMessage("An error occurred while verifying password");
+          } else if (isMatch && userData.username === savedUserData.username) {
+            setLoggedIn(true);
+            localStorage.setItem("loggedIn", JSON.stringify(true));
+            setShowTodo(true);
+          } else {
+            setErrorMessage("Username or password is incorrect!");
+          }
+        });
       } else {
-        // Handle login failure case
-        setErrorMessege("Username or password is incorrect!");
+        setErrorMessage("No account found. Please sign up first.");
       }
     } else {
       // If on the signup page, proceed with saving new user data
       if (userData.username !== "" && userData.password !== "") {
-        setLoggedIn(true);
-        localStorage.setItem("loggedIn", JSON.stringify(loggedIn));
-        setShowTodo(true);
+        // Hash the password using bcrypt before saving it
+        bcrypt.hash(userData.password, 10, (err, hashedPassword) => {
+          if (err) {
+            setErrorMessage("Error occurred while hashing the password.");
+            return;
+          }
 
-        // Save the new user data in localStorage
-        localStorage.setItem("savedUserData", JSON.stringify(userData));
+          const newUserData = {
+            username: userData.username,
+            password: hashedPassword, // Save the hashed password
+          };
+
+          setLoggedIn(true);
+          localStorage.setItem("loggedIn", JSON.stringify(true));
+          localStorage.setItem("savedUserData", JSON.stringify(newUserData)); // Save the new user data with hashed password
+          setShowTodo(true);
+        });
       }
 
       // Display appropriate error messages
       if (userData.username === "" && userData.password !== "") {
-        setErrorMessege("Please enter a username!");
+        setErrorMessage("Please enter a username!");
       } else if (userData.username !== "" && userData.password === "") {
-        setErrorMessege("Please enter a password!");
+        setErrorMessage("Please enter a password!");
       } else if (userData.username === "" && userData.password === "") {
-        setErrorMessege("Please enter a username and a password!");
+        setErrorMessage("Please enter a username and a password!");
       }
     }
   }
@@ -93,7 +108,7 @@ const SignupOrLogin = ({
             </div>
           </div>
         </label>
-        <p className='text-red-500'>{errorMessege}</p>
+        <p className='text-red-500'>{errorMessage}</p>
       </div>
 
       <div
@@ -105,6 +120,7 @@ const SignupOrLogin = ({
     </div>
   );
 };
+
 SignupOrLogin.propTypes = {
   setShowTodo: PropTypes.func.isRequired,
   buttonName: PropTypes.string.isRequired,

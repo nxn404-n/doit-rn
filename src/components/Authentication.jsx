@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import SignupOrLogin from "./SignupOrLogin";
 
 const Authentication = ({
-  loggedIn,
   setLoggedIn,
   signUp,
   setSignUp,
@@ -27,7 +26,6 @@ const Authentication = ({
           buttonName={"Sign Up"}
           userData={userData}
           setUserData={setUserData}
-          loggedIn={loggedIn}
           setLoggedIn={setLoggedIn}
           signUp={signUp}
           setShowTodo={setShowTodo}
@@ -37,7 +35,6 @@ const Authentication = ({
           buttonName={"Log in"}
           userData={userData}
           setUserData={setUserData}
-          loggedIn={loggedIn}
           setLoggedIn={setLoggedIn}
           signUp={signUp}
           setShowTodo={setShowTodo}
