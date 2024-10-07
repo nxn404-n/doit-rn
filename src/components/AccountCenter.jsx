@@ -13,7 +13,10 @@ const AccountCenter = ({ setLoggedIn, setSignUp, loggedIn, showTodo }) => {
   // Handles the Delete account button
   function handleDeleteAcc() {
     setLoggedIn(false);
-    localStorage.setItem("savedUserData", JSON.stringify({ username: "", password: "" }));
+    localStorage.setItem(
+      "savedUserData",
+      JSON.stringify({ username: "", password: "" }),
+    );
     localStorage.setItem("todos", JSON.stringify([]));
   }
 
@@ -21,7 +24,7 @@ const AccountCenter = ({ setLoggedIn, setSignUp, loggedIn, showTodo }) => {
     <>
       {loggedIn && !showTodo && (
         <div>
-          <h2>Account Center</h2>
+          <h2 className="text-xl">Account Center</h2>
 
           <div>
             <p>Username: {accName}</p>

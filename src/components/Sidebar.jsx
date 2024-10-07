@@ -1,6 +1,6 @@
 import { LuListTodo } from "react-icons/lu";
 import { RiAccountBoxFill } from "react-icons/ri";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 const Sidebar = ({ setShowTodo, setShowAccCenter }) => {
   // Handles the todo button
@@ -16,13 +16,13 @@ const Sidebar = ({ setShowTodo, setShowAccCenter }) => {
   }
 
   return (
-    <div className='border-r-2 border-black px-4 flex flex-col justify-center gap-48'>
-      <div className='sideBar-btn' onClick={handleTodoBtn}>
-        <LuListTodo className='sideBar-btn-icon' />
+    <div className="flex flex-col justify-center gap-48 border-r-2 border-black px-4">
+      <div className="sideBar-btn" onClick={handleTodoBtn}>
+        <LuListTodo className="sideBar-btn-icon" />
         <p>Todo-List</p>
       </div>
-      <div className='sideBar-btn' onClick={handleAccBtn}>
-        <RiAccountBoxFill className='sideBar-btn-icon' />
+      <div className="sideBar-btn" onClick={handleAccBtn}>
+        <RiAccountBoxFill className="sideBar-btn-icon" />
         <p>Account</p>
       </div>
     </div>

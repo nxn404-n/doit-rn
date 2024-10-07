@@ -49,7 +49,7 @@ const SignupOrLogin = ({
             } else {
               setErrorMessage("Username or password is incorrect!");
             }
-          }
+          },
         );
       } else {
         setErrorMessage("No account found. Please sign up first.");
@@ -88,28 +88,28 @@ const SignupOrLogin = ({
   }
 
   return (
-    <div className='flex flex-col gap-4'>
-      <div className='flex flex-col gap-3'>
-        <label className='flex flex-col'>
-          <p className='inputLabel'>Username</p>
+    <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-3">
+        <label className="flex flex-col">
+          <p className="inputLabel">Username</p>
           <input
-            type='text'
-            name='username'
+            type="text"
+            name="username"
             value={userData.username}
             onChange={handleInput}
-            className='inputBox'
+            className="inputBox"
           />
         </label>
 
-        <label className='flex flex-col'>
-          <p className='inputLabel'>Password</p>
-          <div className='flex items-center justify-between bg-white'>
+        <label className="flex flex-col">
+          <p className="inputLabel">Password</p>
+          <div className="flex items-center justify-between bg-white">
             <input
               type={showPassword ? "text" : "password"}
-              name='password'
+              name="password"
               value={userData.password}
               onChange={handleInput}
-              className='inputBox'
+              className="inputBox"
             />
             {/* Toggles the showPassword state */}
             <div onClick={() => setShowPassword((prevState) => !prevState)}>
@@ -117,14 +117,14 @@ const SignupOrLogin = ({
             </div>
           </div>
         </label>
-        <p className='text-red-500 shake' key={errorMessage}>
+        <p className="shake text-red-500" key={errorMessage}>
           {/* Added key={errorMessage} so that everytime error messege changes react will treat it as a new element and show the shake animation */}
           {errorMessage}
         </p>
       </div>
 
       <div
-        className='p-2 text-center bg-black text-white loginOrsignupBtn cursor-pointer text-lg font-semibold'
+        className="loginOrsignupBtn cursor-pointer bg-black p-2 text-center text-lg font-semibold text-white"
         onClick={handleSubmit}
       >
         <button>{buttonName}</button>

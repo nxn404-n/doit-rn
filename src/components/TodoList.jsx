@@ -46,8 +46,8 @@ const TodoList = ({ loggedIn }) => {
   function toggleComplete(id) {
     setTodos(
       todos.map((todo) =>
-        todo.id === id ? { ...todo, completed: !todo.completed } : todo
-      )
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo,
+      ),
     );
   }
 

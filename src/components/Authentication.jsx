@@ -12,8 +12,8 @@ const Authentication = ({ setLoggedIn, signUp, setSignUp, setShowTodo }) => {
   }
 
   return (
-    <div className=' h-96 flex flex-col items-center w-full mt-6 gap-3'>
-      <h1 className='text-xl tracking-wider mb-3'>Welcome to DOIT-rn</h1>
+    <div className="mt-6 flex h-96 w-full flex-col items-center gap-3">
+      <h1 className="mb-3 text-xl tracking-wider">Welcome to DOIT-rn</h1>
 
       {/* Showes diff content according to the signUp state */}
       <div className="w-64">
@@ -40,12 +40,12 @@ const Authentication = ({ setLoggedIn, signUp, setSignUp, setShowTodo }) => {
 
       {/* Showes diff footer according to the state according to the signUp state */}
       {signUp ? (
-        <div className='flex gap-2'>
+        <div className="flex gap-2">
           <p>Already have an account?</p>
           <button onClick={() => handleSignup()}>Log in</button>
         </div>
       ) : (
-        <div className='flex gap-2'>
+        <div className="flex gap-2">
           <p>Create a new account?</p>
           <button onClick={() => handleSignup()}>Sign Up</button>
         </div>
