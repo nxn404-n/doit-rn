@@ -3,12 +3,14 @@ import PropTypes from "prop-types";
 const AccountCenter = ({ setLoggedIn, setSignUp, loggedIn, showTodo }) => {
   const accName = JSON.parse(localStorage.getItem("savedUserData")).username;
 
+  // Handles the Logout button
   function handleLogOut() {
     setLoggedIn(false);
     localStorage.setItem("loggedIn", JSON.stringify(loggedIn));
     setSignUp(false);
   }
 
+  // Handles the Delete account button
   function handleDeleteAcc() {
     setLoggedIn(false);
     localStorage.setItem("savedUserData", JSON.stringify({ username: "", password: "" }));

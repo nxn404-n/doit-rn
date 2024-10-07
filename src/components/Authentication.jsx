@@ -2,12 +2,7 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import SignupOrLogin from "./SignupOrLogin";
 
-const Authentication = ({
-  setLoggedIn,
-  signUp,
-  setSignUp,
-  setShowTodo,
-}) => {
+const Authentication = ({ setLoggedIn, signUp, setSignUp, setShowTodo }) => {
   // stores the userData
   const [userData, setUserData] = useState({ username: "", password: "" });
 
@@ -17,29 +12,31 @@ const Authentication = ({
   }
 
   return (
-    <div className='border-2 border-black'>
-      <h1>Welcome to DOIT-rn</h1>
+    <div className=' h-96 flex flex-col items-center w-full mt-6 gap-3'>
+      <h1 className='text-xl tracking-wider mb-3'>Welcome to DOIT-rn</h1>
 
       {/* Showes diff content according to the signUp state */}
-      {signUp ? (
-        <SignupOrLogin
-          buttonName={"Sign Up"}
-          userData={userData}
-          setUserData={setUserData}
-          setLoggedIn={setLoggedIn}
-          signUp={signUp}
-          setShowTodo={setShowTodo}
-        />
-      ) : (
-        <SignupOrLogin
-          buttonName={"Log in"}
-          userData={userData}
-          setUserData={setUserData}
-          setLoggedIn={setLoggedIn}
-          signUp={signUp}
-          setShowTodo={setShowTodo}
-        />
-      )}
+      <div className="w-64">
+        {signUp ? (
+          <SignupOrLogin
+            buttonName={"Sign Up"}
+            userData={userData}
+            setUserData={setUserData}
+            setLoggedIn={setLoggedIn}
+            signUp={signUp}
+            setShowTodo={setShowTodo}
+          />
+        ) : (
+          <SignupOrLogin
+            buttonName={"Log in"}
+            userData={userData}
+            setUserData={setUserData}
+            setLoggedIn={setLoggedIn}
+            signUp={signUp}
+            setShowTodo={setShowTodo}
+          />
+        )}
+      </div>
 
       {/* Showes diff footer according to the state according to the signUp state */}
       {signUp ? (

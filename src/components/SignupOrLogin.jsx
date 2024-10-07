@@ -33,17 +33,24 @@ const SignupOrLogin = ({
       // Check if there is saved user data and if it matches the input
       if (savedUserData) {
         // Compare the hashed password using bcrypt
-        bcrypt.compare(userData.password, savedUserData.password, (err, isMatch) => {
-          if (err) {
-            setErrorMessage("An error occurred while verifying password");
-          } else if (isMatch && userData.username === savedUserData.username) {
-            setLoggedIn(true);
-            localStorage.setItem("loggedIn", JSON.stringify(true));
-            setShowTodo(true);
-          } else {
-            setErrorMessage("Username or password is incorrect!");
+        bcrypt.compare(
+          userData.password,
+          savedUserData.password,
+          (err, isMatch) => {
+            if (err) {
+              setErrorMessage("An error occurred while verifying password");
+            } else if (
+              isMatch &&
+              userData.username === savedUserData.username
+            ) {
+              setLoggedIn(true);
+              localStorage.setItem("loggedIn", JSON.stringify(true));
+              setShowTodo(true);
+            } else {
+              setErrorMessage("Username or password is incorrect!");
+            }
           }
-        });
+        );
       } else {
         setErrorMessage("No account found. Please sign up first.");
       }
@@ -71,36 +78,38 @@ const SignupOrLogin = ({
 
       // Display appropriate error messages
       if (userData.username === "" && userData.password !== "") {
-        setErrorMessage("Please enter a username!");
+        setErrorMessage("Please enter an username!");
       } else if (userData.username !== "" && userData.password === "") {
         setErrorMessage("Please enter a password!");
       } else if (userData.username === "" && userData.password === "") {
-        setErrorMessage("Please enter a username and a password!");
+        setErrorMessage("Please enter an username and a password!");
       }
     }
   }
 
   return (
-    <div>
-      <div>
+    <div className='flex flex-col gap-4'>
+      <div className='flex flex-col gap-3'>
         <label className='flex flex-col'>
-          Username
+          <p className='inputLabel'>Username</p>
           <input
             type='text'
             name='username'
             value={userData.username}
             onChange={handleInput}
+            className='inputBox'
           />
         </label>
 
         <label className='flex flex-col'>
-          Password
-          <div className='flex items-center justify-between'>
+          <p className='inputLabel'>Password</p>
+          <div className='flex items-center justify-between bg-white'>
             <input
               type={showPassword ? "text" : "password"}
               name='password'
               value={userData.password}
               onChange={handleInput}
+              className='inputBox'
             />
             {/* Toggles the showPassword state */}
             <div onClick={() => setShowPassword((prevState) => !prevState)}>
@@ -108,11 +117,14 @@ const SignupOrLogin = ({
             </div>
           </div>
         </label>
-        <p className='text-red-500'>{errorMessage}</p>
+        <p className='text-red-500 shake' key={errorMessage}>
+          {/* Added key={errorMessage} so that everytime error messege changes react will treat it as a new element and show the shake animation */}
+          {errorMessage}
+        </p>
       </div>
 
       <div
-        className='border-2 border-black p-2 text-center'
+        className='p-2 text-center bg-black text-white loginOrsignupBtn cursor-pointer text-lg font-semibold'
         onClick={handleSubmit}
       >
         <button>{buttonName}</button>
@@ -129,7 +141,6 @@ SignupOrLogin.propTypes = {
     password: PropTypes.string,
   }).isRequired,
   setUserData: PropTypes.func.isRequired,
-  loggedIn: PropTypes.bool.isRequired,
   setLoggedIn: PropTypes.func.isRequired,
   signUp: PropTypes.bool.isRequired,
 };

@@ -3,11 +3,13 @@ import { RiAccountBoxFill } from "react-icons/ri";
 import PropTypes from 'prop-types';
 
 const Sidebar = ({ setShowTodo, setShowAccCenter }) => {
+  // Handles the todo button
   function handleTodoBtn() {
     setShowTodo(true);
     setShowAccCenter(false);
   }
 
+  // Handles the Account button
   function handleAccBtn() {
     setShowTodo(false);
     setShowAccCenter(true);

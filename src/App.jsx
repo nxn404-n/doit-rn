@@ -31,14 +31,14 @@ function App() {
   }, [loggedIn]);
 
   return (
-    <div className='bg-[#D6D3C0] w-full h-full'>
+    <div className='bg-[#D6D3C0] w-full h-full flex flex-col items-center justify-center'>
       <Navbar />
       {/* className="bg-[#FAEBD7] w-3/4 h-4/5" apply this in desktop mode */}
-      <div className=' w-full h-full flex border-2 border-black'>
-        <Sidebar
+      <div className=' w-full h-full flex'>
+        {loggedIn && <Sidebar
           setShowTodo={setShowTodo}
           setShowAccCenter={setShowAccCenter}
-        />
+        />}
 
         {showTodo && <TodoList loggedIn={loggedIn} />}
 

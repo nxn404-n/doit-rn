@@ -3,13 +3,46 @@
 @tailwind utilities;
 
 body {
-  @apply bg-[#1E1E1E]
+  @apply bg-[#1E1E1E] overflow-hidden font-pt;
 }
 
 .sideBar-btn-icon {
-  @apply text-5xl
+  @apply text-5xl;
 }
 
 .sideBar-btn {
-  @apply flex flex-col items-center
+  @apply flex flex-col items-center;
+}
+
+.inputLabel {
+  @apply text-lg
+}
+
+.inputBox {
+  @apply h-7 outline-none;
+}
+
+.loginOrsignupBtn {
+  transition: 250ms linear;
+  box-shadow: 0 0 5px 1px rgb(71, 71, 71);
+}
+
+.loginOrsignupBtn:hover {
+  transform: scale(0.95);
+}
+
+.loginOrsignupBtn:active {
+  transform: scale(0.9);
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+
+.shake {
+  animation: shake 300ms ease-in-out;
 }
