@@ -7,11 +7,14 @@ body {
 }
 
 .sideBar-btn-icon {
-  @apply text-5xl;
+  @apply text-4xl;
 }
 
 .sideBar-btn {
   @apply flex flex-col items-center;
+}
+.sideBarIconText {
+  @apply text-sm
 }
 
 .inputLabel {

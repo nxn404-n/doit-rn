@@ -16,14 +16,14 @@ const Sidebar = ({ setShowTodo, setShowAccCenter }) => {
   }
 
   return (
-    <div className="flex flex-col justify-center gap-48 border-r-2 border-black px-4">
+    <div className="flex flex-col gap-16 pt-3 border-r-2 border-black px-2">
       <div className="sideBar-btn" onClick={handleTodoBtn}>
         <LuListTodo className="sideBar-btn-icon" />
-        <p>Todo-List</p>
+        <p className="sideBarIconText">Todo-List</p>
       </div>
       <div className="sideBar-btn" onClick={handleAccBtn}>
         <RiAccountBoxFill className="sideBar-btn-icon" />
-        <p>Account</p>
+        <p className="sideBarIconText">Account</p>
       </div>
     </div>
   );
