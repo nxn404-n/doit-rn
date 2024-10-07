@@ -34,7 +34,7 @@ function App() {
     <div className="flex h-full w-full flex-col items-center justify-center bg-[#D6D3C0]">
       <Navbar />
       {/* className="bg-[#FAEBD7] w-3/4 h-4/5" apply this in desktop mode */}
-      <div className="flex h-full w-full">
+      <div className="flex h-full w-full gap-6">
         {loggedIn && (
           <Sidebar
             setShowTodo={setShowTodo}

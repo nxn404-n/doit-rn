@@ -23,12 +23,12 @@ const AccountCenter = ({ setLoggedIn, setSignUp, loggedIn, showTodo }) => {
   return (
     <>
       {loggedIn && !showTodo && (
-        <div>
+        <div className="pt-3 flex flex-col gap-3">
           <h2 className="text-xl">Account Center</h2>
 
-          <div>
+          <div className="text-lg flex flex-col gap-1">
             <p>Username: {accName}</p>
-            <p onClick={handleDeleteAcc}>Delete account</p>
+            <p onClick={handleDeleteAcc} className="text-red-600">Delete account</p>
             <p onClick={handleLogOut}>Log out</p>
           </div>
         </div>
