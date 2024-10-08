@@ -28,8 +28,8 @@ const AccountCenter = ({ setLoggedIn, setSignUp, loggedIn, showTodo }) => {
 
           <div className="text-lg flex flex-col gap-1">
             <p>Username: {accName}</p>
-            <p onClick={handleDeleteAcc} className="text-red-600">Delete account</p>
-            <p onClick={handleLogOut}>Log out</p>
+            <p onClick={handleDeleteAcc} className="text-red-600  hover:scale-105">Delete account</p>
+            <p onClick={handleLogOut} className="hover:scale-105">Log out</p>
           </div>
         </div>
       )}

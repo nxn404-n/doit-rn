@@ -11,7 +11,7 @@ body {
 }
 
 .sideBar-btn {
-  @apply flex flex-col items-center;
+  @apply flex flex-col items-center hover:scale-105 duration-100;
 }
 .sideBarIconText {
   @apply text-sm
@@ -25,6 +25,16 @@ body {
   @apply h-7 outline-none;
 }
 
+.addTodo {
+  transition: 500ms ease;
+}
+
+.addTodo:hover {
+  background-color: #577D8A;
+  color: white;
+  border-radius: 5px;
+}
+
 .loginOrsignupBtn {
   transition: 250ms linear;
   box-shadow: 0 0 5px 1px rgb(71, 71, 71);
@@ -36,6 +46,14 @@ body {
 
 .loginOrsignupBtn:active {
   transform: scale(0.9);
+}
+
+.deleteBtn {
+  transition: 150ms ease-in-out;
+}
+
+.deleteBtn:hover {
+  transform: scale(1.1);
 }
 
 @keyframes shake {

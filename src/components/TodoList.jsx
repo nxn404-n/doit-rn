@@ -52,42 +52,38 @@ const TodoList = ({ loggedIn }) => {
   }
 
   return (
-    <>
+    <div className="pt-3 pr-3 w-full">
       {loggedIn && (
-        <div>
-          <h2>To-Do</h2>
+        <div className="flex flex-col gap-2">
+          <h2 className="text-xl font-semibold">To-Do</h2>
 
           {/* Todo input */}
-          <div>
+          <div className="flex gap-2">
             <input
               type="text"
-              className="border-2 border-black"
+              className="outline-none max-w-80 bg-[#719F9D] rounded-md px-2"
               value={input}
               onChange={(e) => setInput(e.target.value)}
             />
-            <button
-              className="border-2 border-black bg-white"
-              onClick={addTodo}
-            >
+            <button className="addTodo bg-[#719F9D] px-2 py-1 max-w-32" onClick={addTodo}>
               Add todo
             </button>
           </div>
 
           {/* Todo List */}
-          <div>
+          <div className="flex flex-col max-w-96 gap-3">
             {todos.map((todo) => (
-              <div key={todo.id}>
-                <Todo
-                  data={todo}
-                  deleteTodo={deleteTodo}
-                  toggleComplete={toggleComplete}
-                />
-              </div>
+              <Todo
+                data={todo}
+                deleteTodo={deleteTodo}
+                toggleComplete={toggleComplete}
+                key={todo.id}
+              />
             ))}
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 TodoList.propTypes = {
