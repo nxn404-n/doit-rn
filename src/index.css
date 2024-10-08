@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply bg-[#1E1E1E] overflow-hidden font-pt;
+  @apply bg-[#715459] overflow-hidden font-pt;
 }
 
 .sideBar-btn-icon {

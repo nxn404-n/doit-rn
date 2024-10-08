@@ -52,9 +52,9 @@ const TodoList = ({ loggedIn }) => {
   }
 
   return (
-    <div className="pt-3 pr-3 w-full">
+    <>
       {loggedIn && (
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 pt-3 pr-3 w-full">
           <h2 className="text-xl font-semibold">To-Do</h2>
 
           {/* Todo input */}
@@ -65,7 +65,7 @@ const TodoList = ({ loggedIn }) => {
               value={input}
               onChange={(e) => setInput(e.target.value)}
             />
-            <button className="addTodo bg-[#719F9D] px-2 py-1 max-w-32" onClick={addTodo}>
+            <button className="addTodo bg-[#719F9D] px-2 py-1 max-w-32 sm:text-lg" onClick={addTodo}>
               Add todo
             </button>
           </div>
@@ -83,7 +83,7 @@ const TodoList = ({ loggedIn }) => {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 };
 TodoList.propTypes = {

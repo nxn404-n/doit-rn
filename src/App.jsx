@@ -31,7 +31,7 @@ function App() {
   }, [loggedIn]);
 
   return (
-    <div className="flex h-full w-full flex-col items-center justify-center bg-[#D6D3C0]">
+    <div className="flex h-full w-full flex-col items-center justify-center bg-[#D6D3C0] sm:w-3/4 sm:h-4/5 border-black border-2">
       <Navbar />
       {/* className="bg-[#FAEBD7] w-3/4 h-4/5" apply this in desktop mode */}
       <div className="flex h-full w-full gap-6">

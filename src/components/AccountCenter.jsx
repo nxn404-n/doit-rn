@@ -24,7 +24,7 @@ const AccountCenter = ({ setLoggedIn, setSignUp, loggedIn, showTodo }) => {
     <>
       {loggedIn && !showTodo && (
         <div className="pt-3 flex flex-col gap-3">
-          <h2 className="text-xl">Account Center</h2>
+          <h2 className="text-xl border-b-2 border-black px-4">Account Center</h2>
 
           <div className="text-lg flex flex-col gap-1">
             <p>Username: {accName}</p>

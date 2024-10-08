@@ -12,7 +12,7 @@ const Authentication = ({ setLoggedIn, signUp, setSignUp, setShowTodo }) => {
   }
 
   return (
-    <div className="mt-6 flex h-96 w-full flex-col items-center gap-3">
+    <div className="pt-6 flex w-full h-full flex-col items-center gap-3 bg-[#8A9C8C]">
       <h1 className="mb-3 text-xl tracking-wider">Welcome to DOIT-rn</h1>
 
       {/* Showes diff content according to the signUp state */}
