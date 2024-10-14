@@ -54,7 +54,6 @@ const Authentication = ({ setLoggedIn, signUp, setSignUp, setShowTodo }) => {
   );
 };
 Authentication.propTypes = {
-  loggedIn: PropTypes.bool.isRequired,
   setLoggedIn: PropTypes.func.isRequired,
   signUp: PropTypes.bool.isRequired,
   setSignUp: PropTypes.func.isRequired,

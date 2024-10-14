@@ -112,7 +112,10 @@ const SignupOrLogin = ({
               className="inputBox"
             />
             {/* Toggles the showPassword state */}
-            <div onClick={() => setShowPassword((prevState) => !prevState)}>
+            <div
+              onClick={() => setShowPassword((prevState) => !prevState)}
+              data-testid="toggle-password"
+            >
               {showPassword ? <FaRegEye /> : <FaRegEyeSlash />}
             </div>
           </div>
