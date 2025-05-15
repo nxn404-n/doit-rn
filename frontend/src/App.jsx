@@ -1,35 +1,100 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import Navbar from "./components/Navbar";
+import TodoList from "./components/TodoList";
+import Authentication from "./components/Authentication";
+import Sidebar from "./components/Sidebar";
+import { useEffect, useState } from "react";
+import AccountCenter from "./components/AccountCenter";
+import axios from "axios";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  // decides if its gonna show the todo list or not
+  const [showTodo, setShowTodo] = useState(true);
+
+  // decides if its gonna show the account center or not
+  const [showAccCenter, setShowAccCenter] = useState(false);
+
+  // If its true thn shows the signup form and if its false thn shows the login form
+  const [signUp, setSignUp] = useState(true);
+
+  // Shows if user logged in or not
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  // Save user data
+  const [user, setUser] = useState({});
+
+  // Function to authenticate
+  const checkUserAuth = async () => {
+    try {
+      // Send a request to the protected route to check if the user is still logged in
+      const response = await axios.get(
+        "https://doit-rn-backend.onrender.com/api/auth",
+        { withCredentials: true },
+      );
+
+      // If the response is successful, the user is logged in and the user data is saved
+      setUser(response.data);
+      setLoggedIn(true);
+    } catch {
+      // If authentication fails thn it asks user to login again
+      setLoggedIn(false);
+      setShowTodo(false);
+    }
+  };
+
+  // Fetches loggedIn data from localStorage and authenticates the user
+  useEffect(() => {
+    checkUserAuth();
+    const loggedInData = localStorage.getItem("loggedIn");
+    if (loggedInData === "true") {
+      setLoggedIn(true);
+    } else {
+      setLoggedIn(false);
+    }
+  }, []);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="flex h-full w-full flex-col items-center justify-center border-2 border-black bg-[#D6D3C0] sm:h-4/5 sm:w-3/4">
+      <Navbar />
+      <div className="flex h-full w-full gap-6">
+        {loggedIn && (
+          <Sidebar
+            setShowTodo={setShowTodo}
+            setShowAccCenter={setShowAccCenter}
+          />
+        )}
+
+        {showTodo && user && loggedIn && (
+          <TodoList
+            loggedIn={loggedIn}
+            userData={user}
+          />
+        )}
+
+        {showAccCenter && (
+          <AccountCenter
+            setSignUp={setSignUp}
+            loggedIn={loggedIn}
+            showTodo={showTodo}
+            user={user}
+            setUser={setUser}
+            setLoggedIn={setLoggedIn}
+          />
+        )}
+
+        {loggedIn === false && (
+          <Authentication
+            signUp={signUp}
+            setSignUp={setSignUp}
+            setShowTodo={setShowTodo}
+            setLoggedIn={setLoggedIn}
+          />
+        )}
+        <ToastContainer />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;
